@@ -85,7 +85,7 @@ public class ParaGUI extends Ventana {
 						}
 
 						if (control.win(tablero.getCasilla())) {
-							
+
 						}
 
 						getContentPane().revalidate();
