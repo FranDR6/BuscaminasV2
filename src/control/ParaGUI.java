@@ -1,8 +1,6 @@
 package control;
 
 import java.awt.Color;
-import java.awt.Container;
-import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.Rectangle;
@@ -12,7 +10,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
 import javax.swing.JButton;
-import javax.swing.border.MatteBorder;
+import javax.swing.JOptionPane;
 
 import modelo.Tablero;
 import vista.Ventana;
@@ -52,7 +50,8 @@ public class ParaGUI extends Ventana {
 	private void crearBotonera() {
 		int ladoBotones = 40;
 		getPanelBotonera().removeAll();
-		cambiarLadoVentana(ladoBotones * tablero.getColumnas() + 50, ladoBotones * tablero.getFilas() + 90);
+		cambiarLadoVentana(getContentPane().getX(), getContentPane().getY(), ladoBotones * tablero.getColumnas() + 50,
+				ladoBotones * tablero.getFilas() + 90);
 		getPanelAbsolute().setBounds(
 				new Rectangle(20, 50, tablero.getColumnas() * ladoBotones, tablero.getFilas() * ladoBotones));
 		getPanelBotonera()
@@ -60,15 +59,11 @@ public class ParaGUI extends Ventana {
 		getPanelBotonera().setLayout(new GridLayout(tablero.getFilas(), tablero.getColumnas(), 1, 1));
 		setBotonera(new JButton[tablero.getFilas()][tablero.getColumnas()]);
 
+		centrarVentana();
+
 		for (int i = 0; i < getBotonera().length; i++) {
 			for (int j = 0; j < getBotonera()[i].length; j++) {
-				getBotonera()[i][j] = new JButton();
-				getBotonera()[i][j].setName(i + " " + j);
-				getBotonera()[i][j].setBackground(Color.LIGHT_GRAY);
-				getBotonera()[i][j].setFont(new Font("Tahoma", Font.PLAIN, 25));
-				getBotonera()[i][j].setBorder(new MatteBorder(1, 1, 1, 1, Color.BLACK));
-				getBotonera()[i][j].setBounds(0, 0, ladoBotones, ladoBotones);
-
+				personalizarBotones(i, j);
 				getBotonera()[i][j].addMouseListener(new MouseListener() {
 					public void mouseReleased(MouseEvent e) {
 						JButton boton = (JButton) e.getSource();
@@ -83,12 +78,11 @@ public class ParaGUI extends Ventana {
 							recursividad(i, j);
 							gameOver(i, j);
 						}
-
 						if (control.win(tablero.getCasilla())) {
-
+							JOptionPane.showMessageDialog(null, "Has ganado!!");
+							getPanelBotonera().removeAll();
 						}
-
-						getContentPane().revalidate();
+						actualizarPantalla();
 
 					}
 
@@ -140,6 +134,8 @@ public class ParaGUI extends Ventana {
 					}
 				}
 			}
+			JOptionPane.showMessageDialog(null, "Has perdido!!");
+			getPanelBotonera().removeAll();
 		}
 	}
 

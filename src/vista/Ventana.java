@@ -2,6 +2,7 @@ package vista;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.SwingUtilities;
 import javax.swing.border.EmptyBorder;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
@@ -29,8 +30,27 @@ public class Ventana extends JFrame {
 		crearVentana();
 	}
 
-	protected void cambiarLadoVentana(int ancho, int alto) {
-		setBounds(100, 100, ancho, alto);
+	public void cambiarLadoVentana(int x, int y, int ancho, int alto) {
+		setBounds(x, y, ancho, alto);
+	}
+
+	public void actualizarPantalla() {
+		JPanel temp = (JPanel) this.getContentPane();
+		SwingUtilities.updateComponentTreeUI(temp);
+	}
+
+	public void personalizarBotones(int i, int j) {
+		int ladoBotones = 40;
+		this.botonera[i][j] = new JButton();
+		this.botonera[i][j].setName(i + " " + j);
+		this.botonera[i][j].setBackground(Color.LIGHT_GRAY);
+		this.botonera[i][j].setFont(new Font("Tahoma", Font.PLAIN, 25));
+		this.botonera[i][j].setBorder(new MatteBorder(1, 1, 1, 1, Color.BLACK));
+		this.botonera[i][j].setBounds(0, 0, ladoBotones, ladoBotones);
+	}
+
+	public void centrarVentana() {
+		setLocationRelativeTo(null);
 	}
 
 	private void crearVentana() {
