@@ -74,6 +74,7 @@ public class ParaGUI extends Ventana {
 						if (e.getButton() == 3 && tablero.isOculta(i, j)) {
 							colocarBandera(i, j);
 						} else {
+							mostrarAdyacentes(i,j);
 							mostrarNumero(i, j);
 							recursividad(i, j);
 							gameOver(i, j);
@@ -103,6 +104,35 @@ public class ParaGUI extends Ventana {
 			}
 		}
 		getContentPane().revalidate();
+	}
+
+	private void mostrarAdyacentes(int i, int j) {
+		int contador = 0;
+		if (this.tablero.getNumero(i, j) == getBanderasAdyacentes(i, j) && !this.tablero.isOculta(i, j)
+				&& !this.tablero.isMina(i, j)) {
+			for (int x = i - 1; x <= i + 1; x++) {
+				for (int y = j - 1; y <= j + 1; y++) {
+					if (x < 0 || y < 0 || x > getBotonera().length - 1 || y > getBotonera()[0].length - 1)
+						continue;
+					mostrarNumero(x, y);
+					recursividad(x, y);
+					gameOver(x, y);
+				}
+			}
+		}
+	}
+
+	private int getBanderasAdyacentes(int i, int j) {
+		int retorno = 0;
+		for (int x = i - 1; x <= i + 1; x++) {
+			for (int y = j - 1; y <= j + 1; y++) {
+				if (x < 0 || y < 0 || x > getBotonera().length - 1 || y > getBotonera()[0].length - 1)
+					continue;
+				if (this.tablero.isBandera(x, y))
+					retorno++;
+			}
+		}
+		return retorno;
 	}
 
 	private void colocarBandera(int i, int j) {
