@@ -35,12 +35,12 @@ public class Ventana extends JFrame {
 
 	public Ventana() {
 		this.ladoBotones = 40;
-		this.bandera = ajustarImagen("./bandera.PNG", ladoBotones -10, ladoBotones-10);
+		this.bandera = ajustarImagen("./bandera.PNG", ladoBotones - 10, ladoBotones - 10);
 		this.bomba = ajustarImagen("./bomba.png", ladoBotones, ladoBotones);
 		this.bombaQuitada = ajustarImagen("./bombaQuitada.png", ladoBotones, ladoBotones);
 		crearVentana();
 	}
-	// hola
+
 	public void cambiarLadoVentana(int x, int y, int ancho, int alto) {
 		setBounds(x, y, ancho, alto);
 	}
