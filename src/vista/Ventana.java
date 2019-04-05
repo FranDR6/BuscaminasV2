@@ -41,6 +41,14 @@ public class Ventana extends JFrame {
 		crearVentana();
 	}
 
+	public void ajustarVentana(int columnas, int filas) {
+		getPanelBotonera().removeAll();
+		cambiarLadoVentana(getContentPane().getX(), getContentPane().getY(), columnas + 50, filas + 90);
+		getPanelAbsolute().setBounds(new Rectangle(20, 50, columnas, filas));
+		getPanelBotonera().setBounds(new Rectangle(0, 0, columnas, filas));
+		centrarVentana();
+	}
+
 	public void cambiarLadoVentana(int x, int y, int ancho, int alto) {
 		setBounds(x, y, ancho, alto);
 	}
@@ -74,7 +82,7 @@ public class Ventana extends JFrame {
 		this.botonera[i][j].setFont(new Font("Tahoma", Font.PLAIN, 25));
 		this.botonera[i][j].setBorder(new MatteBorder(1, 1, 1, 1, Color.BLACK));
 		this.botonera[i][j].setBounds(0, 0, ladoBotones, ladoBotones);
-		
+
 	}
 
 	public void centrarVentana() {

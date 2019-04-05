@@ -49,16 +49,11 @@ public class ParaGUI extends Ventana {
 
 	private void crearBotonera() {
 		int ladoBotones = 40;
-		int columna = ladoBotones * tablero.getColumnas();
+		int columnas = ladoBotones * tablero.getColumnas();
 		int filas = ladoBotones * tablero.getFilas();
-		getPanelBotonera().removeAll();
-		cambiarLadoVentana(getContentPane().getX(), getContentPane().getY(), columna + 50, filas + 90);
-		getPanelAbsolute().setBounds(new Rectangle(20, 50, columna, filas));
-		getPanelBotonera().setBounds(new Rectangle(0, 0, columna, filas));
 		getPanelBotonera().setLayout(new GridLayout(tablero.getFilas(), tablero.getColumnas(), 1, 1));
 		setBotonera(new JButton[tablero.getFilas()][tablero.getColumnas()]);
-
-		centrarVentana();
+		ajustarVentana(columnas, filas);
 
 		for (int i = 0; i < getBotonera().length; i++) {
 			for (int j = 0; j < getBotonera()[i].length; j++) {
