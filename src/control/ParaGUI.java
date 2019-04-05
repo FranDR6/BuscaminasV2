@@ -49,13 +49,12 @@ public class ParaGUI extends Ventana {
 
 	private void crearBotonera() {
 		int ladoBotones = 40;
+		int columna = ladoBotones * tablero.getColumnas();
+		int filas = ladoBotones * tablero.getFilas();
 		getPanelBotonera().removeAll();
-		cambiarLadoVentana(getContentPane().getX(), getContentPane().getY(), ladoBotones * tablero.getColumnas() + 50,
-				ladoBotones * tablero.getFilas() + 90);
-		getPanelAbsolute().setBounds(
-				new Rectangle(20, 50, tablero.getColumnas() * ladoBotones, tablero.getFilas() * ladoBotones));
-		getPanelBotonera()
-				.setBounds(new Rectangle(0, 0, tablero.getColumnas() * ladoBotones, tablero.getFilas() * ladoBotones));
+		cambiarLadoVentana(getContentPane().getX(), getContentPane().getY(), columna + 50, filas + 90);
+		getPanelAbsolute().setBounds(new Rectangle(20, 50, columna, filas));
+		getPanelBotonera().setBounds(new Rectangle(0, 0, columna, filas));
 		getPanelBotonera().setLayout(new GridLayout(tablero.getFilas(), tablero.getColumnas(), 1, 1));
 		setBotonera(new JButton[tablero.getFilas()][tablero.getColumnas()]);
 
@@ -63,7 +62,9 @@ public class ParaGUI extends Ventana {
 
 		for (int i = 0; i < getBotonera().length; i++) {
 			for (int j = 0; j < getBotonera()[i].length; j++) {
+
 				personalizarBotones(i, j);
+
 				getBotonera()[i][j].addMouseListener(new MouseListener() {
 					public void mouseReleased(MouseEvent e) {
 						JButton boton = (JButton) e.getSource();

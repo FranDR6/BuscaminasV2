@@ -74,6 +74,7 @@ public class Ventana extends JFrame {
 		this.botonera[i][j].setFont(new Font("Tahoma", Font.PLAIN, 25));
 		this.botonera[i][j].setBorder(new MatteBorder(1, 1, 1, 1, Color.BLACK));
 		this.botonera[i][j].setBounds(0, 0, ladoBotones, ladoBotones);
+		
 	}
 
 	public void centrarVentana() {
