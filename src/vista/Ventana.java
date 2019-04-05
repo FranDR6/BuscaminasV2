@@ -40,7 +40,7 @@ public class Ventana extends JFrame {
 		this.bombaQuitada = ajustarImagen("./bombaQuitada.png", ladoBotones, ladoBotones);
 		crearVentana();
 	}
-
+	// hola
 	public void cambiarLadoVentana(int x, int y, int ancho, int alto) {
 		setBounds(x, y, ancho, alto);
 	}
