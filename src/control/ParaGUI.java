@@ -74,7 +74,7 @@ public class ParaGUI extends Ventana {
 						if (e.getButton() == 3 && tablero.isOculta(i, j)) {
 							colocarBandera(i, j);
 						} else {
-							mostrarAdyacentes(i,j);
+							mostrarAdyacentes(i, j);
 							mostrarNumero(i, j);
 							recursividad(i, j);
 							gameOver(i, j);
@@ -138,13 +138,10 @@ public class ParaGUI extends Ventana {
 	private void colocarBandera(int i, int j) {
 		if (!tablero.isBandera(i, j)) {
 			tablero.setBandera(i, j, true);
-			getBotonera()[i][j].setBackground(Color.ORANGE);
-			getBotonera()[i][j].setForeground(Color.BLACK);
-			getBotonera()[i][j].setText("?");
+			ponerImgBandera(i, j, false);
 		} else {
-			getBotonera()[i][j].setBackground(Color.LIGHT_GRAY);
 			tablero.setBandera(i, j, false);
-			getBotonera()[i][j].setText(null);
+			ponerImgBandera(i, j, true);
 		}
 	}
 
@@ -153,13 +150,10 @@ public class ParaGUI extends Ventana {
 			for (int x = 0; x < getBotonera().length; x++) {
 				for (int y = 0; y < getBotonera()[i].length; y++) {
 					if (tablero.isMina(x, y)) {
-						getBotonera()[x][y].setForeground(Color.WHITE);
 						if (!tablero.isBandera(x, y)) {
-							getBotonera()[x][y].setBackground(Color.RED);
-							getBotonera()[x][y].setText("!");
+							ponerImgBomba(x, y, false);
 						} else {
-							getBotonera()[x][y].setBackground(Color.GREEN);
-							getBotonera()[x][y].setText("X");
+							ponerImgBomba(x, y, true);
 						}
 					}
 				}
@@ -186,7 +180,8 @@ public class ParaGUI extends Ventana {
 	}
 
 	private void mostrarNumero(int i, int j) {
-		if (this.tablero.getNumero(i, j) > 0 && this.tablero.isOculta(i, j) && !this.tablero.isMina(i, j)) {
+		if (this.tablero.getNumero(i, j) > 0 && this.tablero.isOculta(i, j) && !this.tablero.isMina(i, j)
+				&& !tablero.isBandera(i, j)) {
 			getBotonera()[i][j].setText(String.valueOf(tablero.getNumero(i, j)));
 			getBotonera()[i][j].setBackground(Color.WHITE);
 			getBotonera()[i][j].setForeground(control.obtenerColor(tablero.getNumero(i, j)));

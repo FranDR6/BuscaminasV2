@@ -4,29 +4,40 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 import javax.swing.border.EmptyBorder;
-import javax.swing.GroupLayout;
-import javax.swing.GroupLayout.Alignment;
 import java.awt.Color;
+
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import java.awt.GridLayout;
+import java.awt.Image;
 import java.awt.Font;
 import javax.swing.border.MatteBorder;
-import java.awt.BorderLayout;
 import java.awt.Rectangle;
 import java.awt.Dimension;
 
 public class Ventana extends JFrame {
 
 	private JButton[][] botonera;
-	private JPanel contentPane;
 	private JButton btnFacil;
 	private JButton btnMedio;
 	private JButton btnDificil;
+
+	private JPanel contentPane;
 	private JPanel panelBotonera;
 	private JPanel panelDificultad;
 	private JPanel panelAbsolute;
 
+	private ImageIcon bandera;
+	private ImageIcon bomba;
+	private ImageIcon bombaQuitada;
+
+	private int ladoBotones;
+
 	public Ventana() {
+		this.ladoBotones = 40;
+		this.bandera = ajustarImagen("./bandera.PNG", ladoBotones -10, ladoBotones-10);
+		this.bomba = ajustarImagen("./bomba.png", ladoBotones, ladoBotones);
+		this.bombaQuitada = ajustarImagen("./bombaQuitada.png", ladoBotones, ladoBotones);
 		crearVentana();
 	}
 
@@ -39,8 +50,24 @@ public class Ventana extends JFrame {
 		SwingUtilities.updateComponentTreeUI(temp);
 	}
 
+	public void ponerImgBandera(int i, int j, boolean quitar) {
+		if (quitar) {
+			this.botonera[i][j].setIcon(null);
+		} else {
+			this.botonera[i][j].setIcon(bandera);
+		}
+	}
+
+	public void ponerImgBomba(int i, int j, boolean quitar) {
+		if (quitar) {
+			this.botonera[i][j].setIcon(null);
+			this.botonera[i][j].setIcon(bombaQuitada);
+		} else {
+			this.botonera[i][j].setIcon(bomba);
+		}
+	}
+
 	public void personalizarBotones(int i, int j) {
-		int ladoBotones = 40;
 		this.botonera[i][j] = new JButton();
 		this.botonera[i][j].setName(i + " " + j);
 		this.botonera[i][j].setBackground(Color.LIGHT_GRAY);
@@ -51,6 +78,14 @@ public class Ventana extends JFrame {
 
 	public void centrarVentana() {
 		setLocationRelativeTo(null);
+	}
+
+	private ImageIcon ajustarImagen(String url, int width, int height) {
+		ImageIcon img = new ImageIcon(url);
+		Image a = img.getImage();
+		Image imgReescalada = a.getScaledInstance(width, height, Image.SCALE_SMOOTH);
+		ImageIcon imgAjustada = new ImageIcon(imgReescalada);
+		return imgAjustada;
 	}
 
 	private void crearVentana() {
